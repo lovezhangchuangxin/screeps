@@ -40,3 +40,37 @@
 webview 和 vscode 之间的通信是通过`postMessage`和`onDidReceiveMessage`方法实现的。
 
 **我们力图减小插件的体积，尽量不引入大体积的第三方库**。因此，我们没有使用诸如 React、Vue 这样的框架来实现 webview 的界面，而是使用原生的 HTML、CSS、JavaScript 实现了小巧的命令行界面。
+
+## 开发
+
+如果你想要为这个插件贡献代码，可以按照以下步骤进行：
+
+1. 克隆本仓库
+
+```bash
+git clone git@github.com:lovezhangchuangxin/screeps.git
+```
+
+2. 安装依赖
+
+```bash
+pnpm install
+```
+
+3. 启动调试
+
+在 VSCode 中按`F5`启动调试，这会打开一个新的 VSCode 窗口，里面有我们的插件。
+
+4. 修改代码
+
+在`src/command`目录下增加新的命令并导入，保存后会自动刷新插件。
+
+5. 提交 PR
+
+修改完成后，提交 PR 到本仓库，我们会尽快处理。
+
+如果你想提前让别人体现你的功能，你可以先使用`vsce`命令打包插件，生成 `.vsix` 文件，然后分享给别人。
+
+```bash
+vsce package --no-dependencies
+```

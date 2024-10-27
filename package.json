@@ -9,6 +9,12 @@
   "categories": [
     "Other"
   ],
+  "publisher": "zhangchuangxin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lovezhangchuangxin/screeps.git"
+  },
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {

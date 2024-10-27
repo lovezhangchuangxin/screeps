@@ -1,5 +1,6 @@
+
 const getWebviewContent = () => {
-  return `<!doctype html>
+    return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
