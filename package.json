@@ -2,7 +2,7 @@
   "name": "screeps",
   "displayName": "screeps",
   "description": "screeps terminal for vscode",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.94.0"
   },
@@ -40,21 +40,12 @@
     "configuration": {
       "title": "Screeps",
       "properties": {
-        "screeps.email": {
+        "screeps.token": {
           "type": [
-            "string",
-            "null"
+            "string"
           ],
-          "default": null,
-          "description": "Screeps账号邮箱"
-        },
-        "screeps.password": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "default": null,
-          "description": "Screeps账号密码"
+          "default": "",
+          "description": "Screeps token"
         }
       }
     },
@@ -80,7 +71,9 @@
     "@types/minimist": "^1.2.5",
     "@types/mocha": "^10.0.8",
     "@types/node": "20.x",
+    "@types/screeps": "^3.3.8",
     "@types/vscode": "^1.94.0",
+    "@types/ws": "^8.5.14",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
     "@vscode/test-cli": "^0.0.10",
@@ -95,6 +88,6 @@
   },
   "dependencies": {
     "minimist": "^1.2.8",
-    "screeps-simple-api": "^1.0.3"
+    "screeps-simple-api": "^1.0.5"
   }
 }

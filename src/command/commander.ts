@@ -107,7 +107,7 @@ export default class Commander {
    */
   validateArgs(args: string[], log: OutputCallback) {
     const { args: configArgs } = this.config
-    if (!configArgs) return
+    if (!configArgs) return true
     const warnings = []
     let min = Math.min(args.length, configArgs.length)
     for (min; min < configArgs.length; min++) {
@@ -131,8 +131,6 @@ export default class Commander {
       if (!this.validateArgs(parsedArgs._, log)) return
 
       this.config.handler(parsedArgs._, parsedArgs, log)
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 }

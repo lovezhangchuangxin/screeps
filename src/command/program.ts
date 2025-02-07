@@ -46,13 +46,13 @@ export default class ScreepsProgram {
     const [cmd, ...args] = command.trim().split(' ')
 
     try {
-      if (!this.testLogin()) {
-        log('请先使用login命令登录', true)
+      if (cmd === 'help') {
+        this.execHelp(args, log)
         return
       }
 
-      if (cmd === 'help') {
-        this.execHelp(args, log)
+      if (cmd !== 'login' && !this.testLogin()) {
+        log('请先使用login命令登录', true)
         return
       }
 

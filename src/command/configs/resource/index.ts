@@ -1,6 +1,6 @@
 import { createCommanderConfig } from '../../types'
 import { getApi } from '../../../api/core'
-import { ResourceConstant, Shard } from 'screeps-simple-api'
+import { Shard } from 'screeps-simple-api'
 import { splitNum } from '../../../utils/utils'
 import {
   b_blueRes,

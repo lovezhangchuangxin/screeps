@@ -6,32 +6,26 @@ import { createCommanderConfig } from '../../types'
 export const loginCommandConfig = createCommanderConfig({
   name: 'login',
   desc: '登录',
-  args: [
+  opts: [
     {
-      name: 'email',
-      desc: '用户名',
-    },
-    {
-      name: 'password',
-      desc: '密码',
+      name: 'token',
+      type: 'string',
+      alias: ['t'],
+      desc: 'Screeps token，默认从配置中获取，如果没有配置则需要手动输入',
     },
   ] as const,
-  async handler(args, _, log) {
-    let [email, password] = args
-    if (!email || !password) {
-      const { email2, password2 } = vscode.workspace.getConfiguration('screeps')
-      if (!email2 || !password2) {
-        log('请先配置Screeps的邮箱或密码', true)
+  async handler(_, opts, log) {
+    let { token } = opts
+    if (!token) {
+      const { token: token2 } = vscode.workspace.getConfiguration('screeps')
+      if (!token2) {
+        log('请先配置 Screeps 的 token 或者手动输入 token', true)
         return
       }
-      email = email || email2
-      password = password || password2
+      token = token2
     }
     const api = new ScreepsApi({
-      // screeps官网注册的邮箱
-      email,
-      // screeps官网登录密码
-      password,
+      token,
     })
     setApi(api)
     let retry = 0

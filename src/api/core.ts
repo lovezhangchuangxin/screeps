@@ -1,10 +1,10 @@
 import * as vscode from 'vscode'
 import { ScreepsApi } from 'screeps-simple-api'
 
-const { email, password } = vscode.workspace.getConfiguration('screeps')
-if (!email || !password) {
+const { token } = vscode.workspace.getConfiguration('screeps')
+if (!token) {
   vscode.window
-    .showWarningMessage('请先配置Screeps的邮箱或密码', '立即配置')
+    .showWarningMessage('请先配置 Screeps 的 token', '立即配置')
     .then((selection) => {
       if (selection === '立即配置') {
         vscode.commands.executeCommand(
@@ -16,10 +16,7 @@ if (!email || !password) {
 }
 
 let _api: ScreepsApi = new ScreepsApi({
-  // screeps官网注册的邮箱
-  email,
-  // screeps官网登录密码
-  password,
+  token,
 })
 
 export const getApi = () => {
