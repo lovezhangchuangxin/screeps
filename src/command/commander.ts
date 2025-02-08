@@ -42,16 +42,56 @@ export default class Commander {
   public help() {
     const { name, desc, args, opts } = this.config
 
-    const commanderUsage = `Usage: ${name}${opts?.length ? ' [options]' : ''}${args?.length ? args.map((arg) => ` <${arg.name}>`).join('') : ''}\n\n`
-    const commanderDescription = `${desc}\n\n`
-    const commanderArguments = args?.length
-      ? `Arguments:\n${args.map((arg) => `  ${arg.name}\t${arg.desc}`).join('\n')}\n\n`
-      : ''
-    const commanderOptions = opts?.length
-      ? `Options:\n${opts.map((option) => `  ${option.name}\t${option.desc}`).join('\n')}\n`
+    // Usage部分
+    const argsUsage = args?.map((arg) => `<${arg.name}>`).join(' ') || ''
+    console.log(name, argsUsage)
+    const optsUsage = opts?.length ? '[选项]' : ''
+    const usage = `用法：${name} ${optsUsage}${argsUsage ? ' ' + argsUsage : ''}\n\n`
+
+    // 描述部分
+    const description = desc ? `${desc}\n\n` : ''
+
+    // 参数部分
+    const argumentsSection = args?.length
+      ? `参数：\n${args.map((arg) => `  ${arg.name.padEnd(15)} ${arg.desc}`).join('\n')}\n\n`
       : ''
 
-    return `${commanderUsage}${commanderDescription}${commanderArguments}${commanderOptions}`
+    // 选项部分
+    const optionsSection = opts?.length
+      ? `选项：\n${opts
+          .map((option) => {
+            // 处理别名
+            const aliasList = option.alias
+              ? (Array.isArray(option.alias)
+                  ? option.alias
+                  : [option.alias]
+                ).map((a) => `-${a}`)
+              : []
+            const fullOption = [...aliasList, `--${option.name}`].join(', ')
+
+            // 处理类型
+            const typePart =
+              option.type !== 'boolean' ? ` <${option.type}>` : ''
+
+            // 处理默认值和必填
+            const metaParts = [
+              option.defaultValue !== undefined
+                ? `默认：${option.defaultValue}`
+                : '',
+              option.required ? '必填' : '',
+            ]
+              .filter(Boolean)
+              .join('，')
+
+            return `  ${fullOption}${typePart.padEnd(10)} ${option.desc}${metaParts ? ` (${metaParts})` : ''}`
+          })
+          .join('\n')}\n`
+      : ''
+
+    // 合并所有部分
+    return `${usage}${description}${argumentsSection}${optionsSection}`
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
   }
 
   /**
